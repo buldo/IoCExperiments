@@ -20,7 +20,7 @@ namespace Common
 
         public int MakeAction(int a, int b)
         {
-            return 256;
+            return 80085;
         }
     }
 }
