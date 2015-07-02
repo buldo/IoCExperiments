@@ -65,6 +65,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NotifierActivator.cs" />
+    <Compile Include="NotifierFacility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,29 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Common
+﻿namespace Common
 {
-    using System.ComponentModel;
+    using System;
     using System.Windows.Input;
 
-    using Common;
-
-    
-
-    public class MainWindowViewModel : AbstractNotify
+    public class MainWindowViewModel : AbstractNotify, INotifierClient
     {
-        private ITestAction _testAction;
+        #region # Fields #
 
-        private int r;
+        private readonly ITestAction _testAction;
 
-        public MainWindowViewModel(ITestAction testAction)
-        {
-            _testAction = testAction;
-            CalculateCommand = new RelayCommand(CalcalateCommandEx);
-        }
+        private int _r; 
+
+        #endregion // # Fields #
+
+        #region # Properties #
+
+        #region = Base =
 
         public int A { get; set; }
 
@@ -33,21 +25,58 @@ namespace Common
         {
             get
             {
-                return r;
+                return _r;
             }
             set
             {
-                r = value;
+                _r = value;
                 OnPropertyChanged(() => R);
             }
         }
 
+        public string NotifyMessage { get; set; }
+
+        #endregion // = Base =
+
+        #region = INotifierClient =
+
+        public string NotifierName { get; set; }
+
+        public INotifier Notifier { get; set; }
+
+        #endregion // = INotifierClient =
+
+        #region = Commands =
+
         public ICommand CalculateCommand { get; set; }
 
-        private void CalcalateCommandEx(object parameter)
+        public ICommand NotifyCommand { get; set; } 
+
+        #endregion // = Commands =
+
+        #endregion // # Properties #
+        
+        public MainWindowViewModel(ITestAction testAction)
+        {
+            _testAction = testAction;
+            CalculateCommand = new RelayCommand(CalculateCommandEx);
+            NotifyCommand = new RelayCommand(NotifyCommandEx);
+            NotifierName = string.Format("FooBar {0}", new Random().Next());
+            NotifyMessage = "Hello, world!!!";
+        }
+
+        #region # Methods #
+
+        private void CalculateCommandEx(object parameter)
         {
             R = _testAction.MakeAction(A, B);
         }
 
+        private void NotifyCommandEx(object parameter)
+        {
+            Notifier.Notify(NotifyMessage);
+        }
+
+        #endregion // # Methods #
     }
 }

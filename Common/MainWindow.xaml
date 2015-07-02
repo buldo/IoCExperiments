@@ -3,10 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="46,32,0,0" TextWrapping="Wrap" Text="{Binding A}" VerticalAlignment="Top" Width="120" Name="A"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="270,32,0,0" TextWrapping="Wrap" Text="{Binding B}" VerticalAlignment="Top" Width="120" Name="B"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="177,81,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CalculateCommand}"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="163,147,0,0" TextWrapping="Wrap" Text="{Binding R}" VerticalAlignment="Top" Width="120" Name="R"/>
-
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Height="30">
+                <Label>f(</Label>
+                <TextBox Width="80" Height="23" TextWrapping="Wrap" Text="{Binding A}" Name="A"/>
+                <Label>,</Label>
+                <TextBox Width="80" Height="23" TextWrapping="Wrap" Text="{Binding B}" Name="B"/>
+                <Label>)=</Label>
+                <TextBox Width="80" Height="23" TextWrapping="Wrap" Text="{Binding R}" Name="R"/>
+                <Button Width="50" Margin="10, 0" Content="Calc" Command="{Binding CalculateCommand}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="30">
+                <TextBox Width="300" Height="23" TextWrapping="Wrap" Text="{Binding NotifyMessage}" Name="NotifyMessage"/>
+                <Button Width="50" Margin="10, 0" Content="Notify" Command="{Binding NotifyCommand}"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>
