@@ -45,8 +45,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractNotify.cs" />
-    <Compile Include="INotifier.cs" />
-    <Compile Include="INotifierName.cs" />
+    <Compile Include="Differents\Different2.cs" />
+    <Compile Include="Differents\Different1.cs" />
+    <Compile Include="Differents\UserOfUserOfDifferentCollection.cs" />
+    <Compile Include="Differents\IDifferent.cs" />
+    <Compile Include="Differents\IUserOfDifferentCollection.cs" />
+    <Compile Include="Differents\IUserOfDifferent.cs" />
+    <Compile Include="Differents\UserOfDifferent2.cs" />
+    <Compile Include="Differents\UserOfDifferent3.cs" />
+    <Compile Include="Differents\UserOfDifferent1.cs" />
+    <Compile Include="Notifiers\INotifier.cs" />
+    <Compile Include="Notifiers\INotifierName.cs" />
     <Compile Include="MainRealisation.cs" />
     <Compile Include="FakeRealisation.cs" />
     <Compile Include="ITestAction.cs" />
@@ -54,7 +63,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="MessageBoxNotifier.cs" />
+    <Compile Include="Notifiers\MessageBoxNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
   </ItemGroup>

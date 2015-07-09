@@ -1,4 +1,4 @@
-﻿namespace Common
+﻿namespace Common.Notifiers
 {
     public interface INotifierClient
     {

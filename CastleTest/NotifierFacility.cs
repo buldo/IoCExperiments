@@ -2,7 +2,8 @@
 {
     using Castle.Core;
     using Castle.MicroKernel.Facilities;
-    using Common;
+
+    using Common.Notifiers;
 
     public class NotifierFacility : AbstractFacility
     {
