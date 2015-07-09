@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Windows;
+using Common.ChildTest;
 using Common.Config;
 
 namespace Common
@@ -45,6 +47,12 @@ namespace Common
 
         #endregion // = Base =
 
+        #region = ChildTest =
+
+        public IParentSystem TestSystem { get; set; }
+
+        #endregion // = ChildTest =
+
         #region = IUserOfDifferentCollection =
 
         public IUserOfDifferentCollection UserOfDifferentsCollection { get; set; }
@@ -77,7 +85,9 @@ namespace Common
 
         public ICommand Config1Command { get; set; }
 
-        public ICommand Config2Command { get; set; } 
+        public ICommand Config2Command { get; set; }
+
+        public ICommand CheckSystemDependencies { get; set; }
 
         #endregion // = Commands =
 
@@ -92,6 +102,7 @@ namespace Common
             NotifyCommand = new RelayCommand(p => Notifier.Notify(NotifyMessage));
             Config1Command = new RelayCommand(p => _configurableFactory.Create(new Config.Config("config1")).Quack());
             Config2Command = new RelayCommand(p => _configurableFactory.Create(new Config.Config("config2")).Quack());
+            CheckSystemDependencies = new RelayCommand(p => MessageBox.Show(TestSystem.ChildSystem.WhoAmi));
             NotifierName = string.Format("FooBar {0}", new Random().Next());
             NotifyMessage = "Hello, world!!!";
         }

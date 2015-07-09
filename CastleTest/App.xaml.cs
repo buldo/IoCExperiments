@@ -1,16 +1,16 @@
-﻿using Castle.Facilities.TypedFactory;
-using Common.Config;
-
-namespace CastleTest
+﻿namespace CastleTest
 {
     using System.Windows;
 
-    using Castle.MicroKernel;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Castle.Windsor.Installer;
+    using Castle.Facilities.TypedFactory;
+    using Castle.MicroKernel;
 
     using Common;
+    using Common.Config;
+    using Common.ChildTest;
     using Common.Differents;
 
     /// <summary>
@@ -35,7 +35,9 @@ namespace CastleTest
 
             _container.Register(Component
                 .For<MainWindowViewModel>()
-                .PropertiesRequire(a => a.PropertyType == typeof (IUserOfDifferentCollection))
+                .PropertiesRequire(a => 
+                    a.PropertyType == typeof (IUserOfDifferentCollection) ||
+                    a.PropertyType == typeof (IParentSystem))
                 .LifestyleTransient());
 
             _container.Register(Component
@@ -63,6 +65,26 @@ namespace CastleTest
                     kernel.Resolve<UserOfDifferent3>()
                     )));
 
+            _container.Register(Component.For<ParentConfig>());
+            _container.Register(Component.For<ChildConfig>());
+
+            _container.Register(Component
+                .For<IChildSystem>()
+                .ImplementedBy<ChildSystem>()
+                .LifestyleTransient());
+
+            _container.Register(Component
+                .For<IParentSystem>()
+                .OnCreate((kernel, item) =>
+                    item.ChildSystem = kernel.Resolve<IChildSystem>(new
+                    {
+                        System = item,
+                        Config = ((ParentSystem)item).ChildConfig
+                    }))
+                .DependsOn(Dependency.OnValue<ParentConfig>(new ParentConfig("test")))
+                .ImplementedBy<ParentSystem>()
+                .LifestyleTransient());            
+
             _container.Register(Component
                 .For<UserOfConfig>()
                 .LifestyleTransient());
@@ -70,9 +92,11 @@ namespace CastleTest
                 .For<IConfigurableFactory>()
                 .AsFactory());
 
-            MainWindow = new MainWindow();
-            MainWindow.DataContext = _container.Resolve<MainWindowViewModel>();
-            MainWindow.Show();
+            _container.Register(Component
+                .For<MainWindow>()
+                .OnCreate((k, i) => i.DataContext = k.Resolve<MainWindowViewModel>()));
+
+            _container.Resolve<MainWindow>().Show();
         }
 
         protected override void OnExit(ExitEventArgs e)

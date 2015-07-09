@@ -45,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractNotify.cs" />
+    <Compile Include="ChildTest\ChildSystem.cs" />
+    <Compile Include="ChildTest\ChildConfig.cs" />
+    <Compile Include="ChildTest\IChildSystem.cs" />
+    <Compile Include="ChildTest\IParentSystem.cs" />
+    <Compile Include="ChildTest\ParentConfig.cs" />
+    <Compile Include="ChildTest\ParentSystem.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Config\IConfigurableFactory.cs" />
     <Compile Include="Config\UserOfConfig.cs" />

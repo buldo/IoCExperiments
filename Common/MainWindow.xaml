@@ -23,6 +23,7 @@
             <StackPanel Orientation="Horizontal" Height="30">
                 <Button Width="50" Margin="10, 0" Content="Config1" Command="{Binding Config1Command}"/>
                 <Button Width="50" Margin="10, 0" Content="Config2" Command="{Binding Config2Command}"/>
+                <Button Width="50" Margin="10, 0" Content="CheckSystemDependencies" Command="{Binding CheckSystemDependencies}"/>
             </StackPanel>
         </StackPanel>
     </Grid>
