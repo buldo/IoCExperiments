@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Common.Config;
 
 namespace Common
 {
@@ -13,9 +14,9 @@ namespace Common
         #region # Fields #
 
         private readonly ITestAction _testAction;
-        private readonly IUserOfDifferentCollection _userOfDifferents;
+        private readonly IConfigurableFactory _configurableFactory;
 
-        private int _r; 
+        private int _r;
 
         #endregion // # Fields #
 
@@ -72,34 +73,27 @@ namespace Common
 
         public ICommand CalculateCommand { get; set; }
 
-        public ICommand NotifyCommand { get; set; } 
+        public ICommand NotifyCommand { get; set; }
+
+        public ICommand Config1Command { get; set; }
+
+        public ICommand Config2Command { get; set; } 
 
         #endregion // = Commands =
 
         #endregion // # Properties #
         
-        public MainWindowViewModel(ITestAction testAction)
+        public MainWindowViewModel(ITestAction testAction, IConfigurableFactory configurableFactory)
         {
             _testAction = testAction;
+            _configurableFactory = configurableFactory;
 
-            CalculateCommand = new RelayCommand(CalculateCommandEx);
-            NotifyCommand = new RelayCommand(NotifyCommandEx);
+            CalculateCommand = new RelayCommand(p => R = _testAction.MakeAction(A, B));
+            NotifyCommand = new RelayCommand(p => Notifier.Notify(NotifyMessage));
+            Config1Command = new RelayCommand(p => _configurableFactory.Create(new Config.Config("config1")).Quack());
+            Config2Command = new RelayCommand(p => _configurableFactory.Create(new Config.Config("config2")).Quack());
             NotifierName = string.Format("FooBar {0}", new Random().Next());
             NotifyMessage = "Hello, world!!!";
         }
-
-        #region # Methods #
-
-        private void CalculateCommandEx(object parameter)
-        {
-            R = _testAction.MakeAction(A, B);
-        }
-
-        private void NotifyCommandEx(object parameter)
-        {
-            Notifier.Notify(NotifyMessage);
-        }
-
-        #endregion // # Methods #
     }
 }

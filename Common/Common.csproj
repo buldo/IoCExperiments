@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractNotify.cs" />
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\IConfigurableFactory.cs" />
+    <Compile Include="Config\UserOfConfig.cs" />
     <Compile Include="Differents\DifferentUniversal.cs" />
     <Compile Include="Differents\Different2.cs" />
     <Compile Include="Differents\Different1.cs" />

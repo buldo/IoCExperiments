@@ -20,6 +20,10 @@
             <StackPanel Orientation="Horizontal" Height="30">
                 <Label Width="300" Height="23" Content="{Binding Differents}" Name="Differents"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="30">
+                <Button Width="50" Margin="10, 0" Content="Config1" Command="{Binding Config1Command}"/>
+                <Button Width="50" Margin="10, 0" Content="Config2" Command="{Binding Config2Command}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

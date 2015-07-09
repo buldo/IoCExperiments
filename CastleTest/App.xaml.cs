@@ -1,4 +1,6 @@
-﻿namespace CastleTest
+﻿using Common.Config;
+
+namespace CastleTest
 {
     using System.Windows;
 
@@ -58,6 +60,13 @@
                     kernel.Resolve<UserOfDifferent2>(),
                     kernel.Resolve<UserOfDifferent3>()
                     )));
+
+            _container.Register(Component
+                .For<UserOfConfig>()
+                .LifestyleTransient());
+            _container.Register(Component
+                .For<IConfigurableFactory>()
+                .UsingFactoryMethod(kernel => new ConfigurableFactory(kernel)));
 
             MainWindow = new MainWindow();
             MainWindow.DataContext = _container.Resolve<MainWindowViewModel>();
