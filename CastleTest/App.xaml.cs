@@ -34,6 +34,7 @@
                 .PropertiesRequire(a => a.PropertyType == typeof (IUserOfDifferentCollection))
                 .LifestyleTransient());
 
+            _container.Register(Component.For<IDifferent>().ImplementedBy<DifferentUniversal>());
             _container.Register(Component.For<Different1>());
             _container.Register(Component.For<Different2>());
             
