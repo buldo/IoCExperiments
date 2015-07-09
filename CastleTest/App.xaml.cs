@@ -1,4 +1,5 @@
-﻿using Common.Config;
+﻿using Castle.Facilities.TypedFactory;
+using Common.Config;
 
 namespace CastleTest
 {
@@ -25,6 +26,7 @@ namespace CastleTest
             _container = new WindsorContainer();
             _container.Install(FromAssembly.This());
             _container.AddFacility<NotifierFacility>();
+            _container.AddFacility<TypedFactoryFacility>();
 
             _container.Register(Component
                 .For<ITestAction>()
@@ -66,7 +68,7 @@ namespace CastleTest
                 .LifestyleTransient());
             _container.Register(Component
                 .For<IConfigurableFactory>()
-                .UsingFactoryMethod(kernel => new ConfigurableFactory(kernel)));
+                .AsFactory());
 
             MainWindow = new MainWindow();
             MainWindow.DataContext = _container.Resolve<MainWindowViewModel>();
