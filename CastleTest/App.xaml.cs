@@ -34,10 +34,14 @@
                 .PropertiesRequire(a => a.PropertyType == typeof (IUserOfDifferentCollection))
                 .LifestyleTransient());
 
-            _container.Register(Component.For<IDifferent>().ImplementedBy<DifferentUniversal>());
-            _container.Register(Component.For<Different1>());
-            _container.Register(Component.For<Different2>());
-            
+            _container.Register(Component
+                .For<IDifferent>()                
+                .ImplementedBy<DifferentUniversal>());
+
+            _container.Register(Classes
+                .FromAssemblyContaining<IDifferent>()
+                .BasedOn<IDifferent>());
+
             _container.Register(Component
                 .For<UserOfDifferent1>()
                 .DependsOn(Dependency.OnComponent<IDifferent, Different1>()));
@@ -54,7 +58,7 @@
                     kernel.Resolve<UserOfDifferent2>(),
                     kernel.Resolve<UserOfDifferent3>()
                     )));
-            
+
             MainWindow = new MainWindow();
             MainWindow.DataContext = _container.Resolve<MainWindowViewModel>();
             MainWindow.Show();
